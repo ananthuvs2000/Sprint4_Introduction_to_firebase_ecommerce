@@ -1,3 +1,6 @@
+import 'package:ecommerce/login/login.dart';
+import 'package:ecommerce/product/view/products.dart';
+import 'package:ecommerce/signup/repo/custumerrepo.dart';
 import 'package:flutter/material.dart';
 
 class CustomerSignup extends StatelessWidget {
@@ -51,8 +54,11 @@ class CustomerSignup extends StatelessWidget {
               hintText: "password",
             ),),
             SizedBox(height: 15,),
-            TextButton(onPressed: () {
-              
+            ElevatedButton(onPressed: () async{
+              if(_formKey.currentState!.validate()){
+                await CustomerRepo().createCustomer(_nameController.text, _emailController.text, _passwordController.text, context);
+              }
+                Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage(),));
             }, child: Text("Sign In")),
           ],
         ),

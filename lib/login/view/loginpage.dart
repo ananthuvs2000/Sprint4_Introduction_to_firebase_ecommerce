@@ -2,6 +2,7 @@ import 'package:ecommerce/login/view/sellerloginpage.dart';
 import 'package:ecommerce/product/view/products.dart';
 import 'package:ecommerce/signup/customersign.dart';
 import 'package:ecommerce/signup/view/sellersignup.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -17,64 +18,68 @@ class LoginPage extends StatelessWidget {
         backgroundColor: Colors.amberAccent,
         title: Text("ShopNow"),
       ),
-      body: Column(
-        key: _formKey,
-        children: [
-          TextFormField(
-            validator: (value) {
-              if(value!.isEmpty){
-                return "enter email";
-              }
-            },
-            controller: _emailController,
-            decoration: InputDecoration(
-              hintText: "email or phone",
-            ),
-          ),
-          TextFormField(
-            validator: (value) {
-              if(value!.isEmpty){
-                return "enter your password";
-              }
-            },
-            controller: _passwordController,
-            decoration: InputDecoration(
-              hintText: "Password",
-            ),
-          ),
-          SizedBox(height: 20),
-           ElevatedButton(onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => ProductView(),));
-          }, child: Text("Login")),
-          TextButton(onPressed: () {
-            
-          }, child: Text("Forgot Password"),),
+      body: Form(
+         key: _formKey,
+        child: Column(
          
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text("Don't have an account?"),
-              TextButton(onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) =>CustomerSignup() ,));
-          }, child: Text("Signup")),
-            ],
-          ),
-          
-          SizedBox(height: 150),
-          Row(mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text("Are you a seller then click here!"),
-              TextButton(onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => SellerLogin(),));
-              }, child: Text("Login")),
+          children: [
+            TextFormField(
+              validator: (value) {
+                if(value!.isEmpty){
+                  return "enter email";
+                }
+              },
+              controller: _emailController,
+              decoration: InputDecoration(
+                hintText: "email or phone",
+              ),
+            ),
+            TextFormField(
+              validator: (value) {
+                if(value!.isEmpty){
+                  return "enter your password";
+                }
+              },
+              controller: _passwordController,
+              decoration: InputDecoration(
+                hintText: "Password",
+              ),
+            ),
+            SizedBox(height: 20),
+             ElevatedButton(onPressed: ()  {
+                
+             Navigator.push(context, MaterialPageRoute(builder: (context) => ProductView(),));
+            }, child: Text("Login")),
+            TextButton(onPressed: () {
               
-            ],
-          ),
-          TextButton(onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => SellerSignup(),));
-          }, child: Text("Signup"),),
-          
-        ],
+            }, child: Text("Forgot Password"),),
+           
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Don't have an account?"),
+                TextButton(onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) =>CustomerSignup() ,));
+            }, child: Text("Signup")),
+              ],
+            ),
+            
+            SizedBox(height: 50),
+            Row(mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Are you a seller then click here!"),
+                TextButton(onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => SellerLogin(),));
+                }, child: Text("Login")),
+                
+              ],
+            ),
+            TextButton(onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => SellerSignup(),));
+            }, child: Text("Signup"),),
+            
+          ],
+        ),
       ),
     );
   }

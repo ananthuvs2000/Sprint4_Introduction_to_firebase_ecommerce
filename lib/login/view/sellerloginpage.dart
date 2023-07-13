@@ -1,5 +1,6 @@
 import 'package:ecommerce/homepage/view/sellerhomepage.dart';
 import 'package:ecommerce/product/view/products.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SellerLogin extends StatelessWidget {
@@ -14,35 +15,43 @@ class SellerLogin extends StatelessWidget {
         backgroundColor: Colors.amberAccent,
         title: Text("ShopNow"),
       ),
-      body: Column(
+      body: Form(
         key: _formKey,
-        children: [
-          TextFormField(
-            validator: (value) {
-              if(value!.isEmpty){
-                return "enter email";
-              }
-            },
-            controller: _emailController,
-            decoration: InputDecoration(
-              hintText: "email ",
+        child: Column(
+          children: [
+            TextFormField(
+              validator: (value) {
+                if(value!.isEmpty){
+                  return "enter email";
+                }
+              },
+              controller: _emailController,
+              decoration: InputDecoration(
+                hintText: "email ",
+              ),
             ),
-          ),
-          TextFormField(
-            validator: (value) {
-              if(value!.isEmpty){
-                return "enter password";
-              }
-            },
-            controller: _passwordController,
-            decoration: InputDecoration(
-              hintText: "password"
+            TextFormField(
+              validator: (value) {
+                if(value!.isEmpty){
+                  return "enter password";
+                }
+              },
+              controller: _passwordController,
+              decoration: InputDecoration(
+                hintText: "password"
+              ),
             ),
-          ),
-          ElevatedButton(onPressed:() {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => SellerHomepage(),));
-          },  child: Text("Login")),
-        ],
+            ElevatedButton(onPressed:() async{
+              try {
+                final _auth=FirebaseAuth.instance;
+              final userRef=await _auth.signInWithEmailAndPassword(email: _emailController.text, password: _passwordController.text);
+              Navigator.push(context, MaterialPageRoute(builder: (context) => SellerHomepage(),));
+              } catch (e) {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Invaid email or password"),));
+              }
+            },  child: Text("Login")),
+          ],
+        ),
       ),
     );
   }
