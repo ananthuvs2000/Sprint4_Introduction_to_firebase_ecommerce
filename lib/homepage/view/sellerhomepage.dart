@@ -1,3 +1,4 @@
+import 'package:ecommerce/addproduct/addpro.dart';
 import 'package:flutter/material.dart';
 
 class SellerHomepage extends StatelessWidget {
@@ -25,21 +26,42 @@ class SellerHomepage extends StatelessWidget {
           ),
         ],
       ),
-      body: Column(
+      body: Column(mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text("Items on shop",style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),),
-          SizedBox(height: 30,),
-          Container(
-            height: 200,
-            width: 200,
-            child: Column(
+          Center(
+            child: Row(
               children: [
-                
+                SizedBox(width: 80,),
+                TextButton(onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => AddProduct(),));
+                  
+                }, child: Text("Add Product")),
+                SizedBox(width: 20,),
+                TextButton(onPressed: () {
+                  
+                }, child: Text("View Products"),),
               ],
             ),
-          )
+          ),
+          SizedBox(height: 40,),
+          Center(
+            child: Row(
+              children: [
+                 SizedBox(width: 80,),
+                TextButton(onPressed: () {
+                  
+                }, child: Text("View Orders"),),
+                SizedBox(width: 20,),
+                TextButton(onPressed: () {
+                  
+                }, child: Text("Update Stock"),),
+              ],
+            ),
+          ),
+      
         ],
       ),
+      
 
       
     );
